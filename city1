@@ -1,0 +1,218 @@
+extends Node2D
+var text1 = "Alrighty, welcome to New Medival Chickonville."
+var text2 = "This city was one of the last to develop into modern society and they just got carried away with industrialization."
+var text3 = "They get all of their resources impoorted from neighboring cities, so there are no local factories here."
+var text4 = "However, like I said, they got carried away."
+var text5 = "So much so that they dont have reliable transportation for less fortunate individuals."
+var text6 = "That is ONE of their many issues."
+var text7 = "Im not sure if you can tell from up there but, their grass and crap are all fake."
+var text8 =  "Anyways I am getting carried away."
+var text9 = "Your objective for this city is to provide reliable transportation to the citiens, and if youre a real sweetheart you can give them some real grass."
+var text10 = "Also, your economy is very poor. I would reccommend building shops first to build your economy."
+var text11 = "I have asked my higher ranks to lend you 5000 dollars to get you started."
+var text12 = "If you waste that money..."
+var text13 = "I WILL WASTE YOU!!"
+var text14 = "goodluck!!"
+var pause_at = 9
+var label_node = null 
+var pause_duration = 0.4
+var display_speed = 0.001
+var commanderugh = load('res://CommanderUgh.png')
+var commanderhappy = load("res://CommanderHappy.png")
+var commandersad = load("res://CommanderSad.png")
+var commanderangry = load("res://CommanderAngry.png")
+var commanderread = load('res://commanderRead.png')
+var commanderyell = load('res://CommanderYell.png')
+var commanderlook = load('res://CommanderLook.png')
+var commanderpalm = load('res://CommanderPalm.png')
+var commandermeow = load('res://commandermeow.png')
+var commander = null
+#stats & ui
+var fund = 5001
+var happiness = 23
+var impeach = 10
+var busCost = 3000
+var busStopCost = 750
+var storeCost = 2500
+var storeLvlUpCost = 1500
+var incomeRateCost = 1000
+var incomeRate = 30
+var happinessLowerRate = 45
+var income = 200
+var parkCost = 10000
+var gotStore1 = false
+var gotStore2 = false
+var parkFix = false
+#civ texts
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	label_node = $Camera2D/Commander/Textbox/Text
+	commander = $Camera2D/Commander
+	commander.texture = commanderhappy
+	await get_tree().create_timer(1.5).timeout
+	$Camera2D/Commander.visible = true
+	await get_tree().create_timer(0.5).timeout
+	await(display_text1())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderlook
+	label_node.text = ''
+	pause_at = 68
+	await(display_text2())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderugh
+	label_node.text = ''
+	pause_at = 68
+	await(display_text3())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderangry
+	label_node.text = ''
+	pause_at = 8
+	await(display_text4())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderpalm
+	label_node.text = ''
+	pause_at = 8
+	await(display_text5())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderyell
+	label_node.text = ''
+	pause_at = 11
+	await(display_text6())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderlook
+	label_node.text = ''
+	pause_at = 11
+	await(display_text7())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderugh
+	label_node.text = ''
+	pause_at = 11
+	await(display_text8())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderhappy
+	label_node.text = ''
+	pause_at = 11
+	await(display_text9())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commandersad
+	label_node.text = ''
+	pause_at = 11
+	await(display_text10())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderugh
+	label_node.text = ''
+	pause_at = 11
+	await(display_text11())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderangry
+	label_node.text = ''
+	pause_at = 11
+	await(display_text12())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commanderyell
+	label_node.text = ''
+	pause_at = 11
+	await(display_text13())
+	await get_tree().create_timer(1.5).timeout
+	commander.texture = commandermeow
+	label_node.text = ''
+	pause_at = 11
+	await(display_text14())
+	await get_tree().create_timer(1.5).timeout
+	commander.visible = false
+	$AnimationPlayer.play('UIintro')
+	await get_tree().create_timer(1.5).timeout
+	$Hint.visible = true
+	$AnimationPlayer.play("hint")
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	$Happiness/Label.text = "Happiness: " + str(happiness) + '%'
+	if happiness < 26:
+		$Happiness.color = Color(1,0,0)
+	if happiness > 49 and not happiness < 26:
+		$Happiness.color = Color(1,2,0)
+	if happiness > 74 and not happiness < 51 and not happiness < 26:
+		$Happiness.color = Color(0,1,0)
+
+
+
+
+
+
+
+
+
+
+
+#text funcs
+func display_text1():
+	for i in range(text1.length()):
+		label_node.text += text1[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text2():
+	for i in range(text2.length()):
+		label_node.text += text2[i]
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text3():
+	for i in range(text3.length()):
+		label_node.text += text3[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text4():
+	for i in range(text4.length()):
+		label_node.text += text4[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text5():
+	for i in range(text5.length()):
+		label_node.text += text5[i]
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text6():
+	for i in range(text6.length()):
+		label_node.text += text6[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text7():
+	for i in range(text7.length()):
+		label_node.text += text7[i]
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text8():
+	for i in range(text8.length()):
+		label_node.text += text8[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text9():
+	for i in range(text9.length()):
+		label_node.text += text9[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text10():
+	for i in range(text10.length()):
+		label_node.text += text10[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text11():
+	for i in range(text11.length()):
+		label_node.text += text11[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text12():
+	for i in range(text12.length()):
+		label_node.text += text12[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text13():
+	for i in range(text13.length()):
+		label_node.text += text13[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text14():
+	for i in range(text14.length()):
+		label_node.text += text14[i]
+		await(get_tree().create_timer(display_speed)).timeout
