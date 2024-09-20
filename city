@@ -1,0 +1,225 @@
+extends Node2D
+var text1 = "Greetings, I am Commander."
+var text2 = "You have been appointed to become mayor of a city."
+var text3 = "Your job will be to cleanse it of pollution through several methods."
+var text4 = "But first, I need to walk you through the mayor process by showing you around Tutorialville."
+var text5 = "After that, you will be moved to your first city to cleanse."
+var text6 = "Firstly, lets begin with your citizens."
+var text7 = "These are RESIDENTAL houses, and the citizens in here control your HAPPINESS meter."
+var text8 = "If your happiness meter gets too low, you could be impeached."
+var text9 = "Next, these are FACTORIES. There are many different types, but right now this one is vacant."
+var text10 = "This is the C.O.T. It stands for Center Of Transportation."
+var text11 = "This is where cars, busses, and other stuff is made. This is very important to save the city."
+var text12 = "Now theres your HQ. This is where you will manage all of your personal upgrades like income, purchases, yeah."
+var text13 = "Moving on, these white spaces are vacant. You will be able to purchase things here to help the city."
+var text14 = 'These benches with signs next to them are bus stops. Make sure these can be accessable to citizens.'
+var text15 = "Finally, theres the shops. These make you income, and can be upgraded."
+var text16 = "Alright. Sorry for all the yap. Now...."
+var text17 = 'CLEANSE THE CITY!'
+var label_node = null
+var display_speed = 0.001
+var commanderugh = load('res://CommanderUgh.png')
+var commanderhappy = load("res://CommanderHappy.png")
+var commandersad = load("res://CommanderSad.png")
+var commanderangry = load("res://CommanderAngry.png")
+var commanderread = load('res://commanderRead.png')
+var commanderyell = load('res://CommanderYell.png')
+var pause_at = 10  # Position to pause at
+var pause_duration = 0.4  # Duration to pause
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	label_node = $Camera2D/Commander/Textbox/Text
+	$Camera2D/Commander.texture = commanderugh
+	await get_tree().create_timer(2.0).timeout
+	$Camera2D/Commander.visible = true
+	await get_tree().create_timer(0.2).timeout
+	display_text1()
+	await get_tree().create_timer(2.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderhappy
+	display_text2()
+	await get_tree().create_timer(2.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderugh
+	pause_at = 37
+	display_text3()
+	await get_tree().create_timer(2.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderangry
+	pause_at = 10
+	display_text4()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderhappy
+	pause_at = 11
+	display_text5()
+	await get_tree().create_timer(2.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderugh
+	pause_at = 8
+	$AnimationPlayer.play('toHousing')
+	display_text6()
+	await get_tree().create_timer(1.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderread
+	pause_at = 28
+	display_text7()
+	await get_tree().create_timer(3.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderangry
+	pause_at = 36
+	display_text8()
+	await get_tree().create_timer(2.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderread
+	$AnimationPlayer.play('toFactory')
+	pause_at = 5
+	display_text9()
+	await get_tree().create_timer(3.5).timeout
+	label_node.text = ""
+	$AnimationPlayer.play('toCot')
+	$Camera2D/Commander.texture = commanderread
+	pause_at = 19
+	display_text10()
+	await get_tree().create_timer(3.5).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderugh
+	pause_at = 36
+	display_text11()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderhappy
+	$AnimationPlayer.play('toHQ')
+	pause_at = 5
+	display_text12()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commandersad
+	$AnimationPlayer.play('toEmpty')
+	pause_at = 5
+	display_text13()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderugh
+	$AnimationPlayer.play('toBus')
+	pause_at = 5
+	display_text14()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderread
+	$AnimationPlayer.play('toShop')
+	pause_at = 5
+	display_text15()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commandersad
+	pause_at = 5
+	display_text16()
+	await get_tree().create_timer(3.0).timeout
+	label_node.text = ""
+	$Camera2D/Commander.texture = commanderyell
+	pause_at = 5
+	display_text17()
+	await get_tree().create_timer(2.5).timeout
+	get_tree().change_scene_to_file("res://city1.tscn")
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_animation_player_animation_finished():
+	pass
+
+
+
+#text functions
+
+func display_text1():
+	for i in range(text1.length()):
+		label_node.text += text1[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text2():
+	for i in range(text2.length()):
+		label_node.text += text2[i]
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text3():
+	for i in range(text3.length()):
+		label_node.text += text3[i]
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text4():
+	for i in range(text4.length()):
+		label_node.text += text4[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text5():
+	for i in range(text5.length()):
+		label_node.text += text5[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text6():
+	for i in range(text6.length()):
+		label_node.text += text6[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text7():
+	for i in range(text7.length()):
+		label_node.text += text7[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text8():
+	for i in range(text8.length()):
+		label_node.text += text8[i]
+		if i == pause_at:
+			await(get_tree().create_timer(pause_duration)).timeout
+		await(get_tree().create_timer(display_speed)).timeout
+func display_text9():
+	for i in range(text9.length()):
+		label_node.text += text9[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text10():
+	for i in range(text10.length()):
+		label_node.text += text10[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text11():
+	for i in range(text11.length()):
+		label_node.text += text11[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text12():
+	for i in range(text12.length()):
+		label_node.text += text12[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text13():
+	for i in range(text13.length()):
+		label_node.text += text13[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text14():
+	for i in range(text14.length()):
+		label_node.text += text14[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text15():
+	for i in range(text15.length()):
+		label_node.text += text15[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text16():
+	for i in range(text16.length()):
+		label_node.text += text16[i]
+		await(get_tree().create_timer(display_speed)).timeout
+
+func display_text17():
+	for i in range(text17.length()):
+		label_node.text += text17[i]
+		await(get_tree().create_timer(display_speed)).timeout
